@@ -1,0 +1,67 @@
+/* src/styles/AdminLayout.css */
+.admin-layout-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f9fafb;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: 240px; /* Default sidebar width */
+  transition: margin-left 0.3s ease;
+  overflow-y: auto;
+}
+
+.content-inner {
+  padding: 1.5rem;
+  max-width: 100%;
+}
+
+/* Adjust for collapsed sidebar */
+.sidebar.collapsed ~ .main-content {
+  margin-left: 70px;
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 70px;
+  }
+  
+  .sidebar:not(.collapsed) ~ .main-content {
+    margin-left: 240px;
+    position: fixed;
+    left: 240px;
+    right: 0;
+    width: calc(100% - 240px);
+  }
+  
+  .content-inner {
+    padding: 1rem;
+  }
+}
+
+/* For very small screens, make the sidebar overlay */
+@media (max-width: 640px) {
+  .sidebar:not(.collapsed) {
+    z-index: 1000;
+    position: fixed;
+    height: 100%;
+  }
+  
+  .sidebar:not(.collapsed) ~ .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .sidebar:not(.collapsed) ~ .main-content::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+  }
+}
