@@ -1,0 +1,158 @@
+/* src/styles/UserProfile.css */
+
+/* Container */
+.user-details-container {
+  padding: 2rem;
+  background: #f9f9fb;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  max-width: 900px;
+  margin: auto;
+}
+
+/* Heading */
+.user-details-container h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #1e3a8a; /* primary deep blue */
+  margin-bottom: 1rem;
+}
+
+/* Back button */
+.user-details-container .btn {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  border: none;
+  transition: background 0.3s ease;
+}
+
+.btn-primary {
+  background: #1e40af;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1e3a8a;
+}
+
+.btn-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.btn-secondary:hover {
+  background: #d1d5db;
+}
+
+/* Profile header */
+.user-profile-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.user-avatar-lg {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #3b82f6; /* accent blue */
+  object-fit: cover;
+}
+
+.user-profile-info {
+  flex: 1;
+}
+
+.user-profile-info p {
+  margin: 0.3rem 0;
+  color: #374151;
+}
+
+/* Status */
+.status {
+  font-weight: 600;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.status.normal {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status.suspicious {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+/* Section blocks */
+.user-section {
+  margin-bottom: 2rem;
+}
+
+.user-section h3 {
+  font-size: 1.25rem;
+  margin-bottom: 0.8rem;
+  color: #1e40af;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.3rem;
+}
+
+.user-section p,
+.user-section li {
+  color: #374151;
+  line-height: 1.5;
+}
+
+/* Skills */
+.skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skill-badge {
+  background: #e0f2fe;
+  color: #1e40af;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+/* Links */
+.user-section a {
+  color: #3b82f6;
+  text-decoration: none;
+  margin-left: 0.4rem;
+}
+
+.user-section a:hover {
+  text-decoration: underline;
+}
+
+/* Loading/Error states */
+.loading,
+.error,
+.no-data {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 2rem;
+}
+
+.loading {
+  color: #1e40af;
+}
+
+.error {
+  color: #b91c1c;
+}
+
+.no-data {
+  color: #6b7280;
+}

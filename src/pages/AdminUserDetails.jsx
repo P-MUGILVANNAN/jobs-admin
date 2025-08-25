@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/UserProfile.css";
+import "../styles/AdminUser.css";
 
 const API_BASE = "https://jobs-backend-z4z9.onrender.com/api";
 

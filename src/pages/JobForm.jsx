@@ -64,8 +64,8 @@ function JobForm() {
       data.append("experience", formData.experience);
       if (formData.companyImage) data.append("companyImage", formData.companyImage);
 
-      // Convert skills string → array (backend expects array of strings)
-      formData.skills.split(",").map((skill) => data.append("skills", skill.trim()));
+      // ✅ Send skills as plain CSV string
+      data.append("skills", formData.skills);
 
       await axios.post(`${API_BASE}/jobs`, data, {
         headers: {
