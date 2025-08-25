@@ -67,7 +67,7 @@ function ManageJobs() {
           <table className="table table-hover align-middle">
             <thead className="table-dark">
               <tr>
-                <th>#</th>
+                <th>S.No</th>
                 <th>Company</th>
                 <th>Job Title</th>
                 <th>Location</th>

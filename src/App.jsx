@@ -7,7 +7,6 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ManageJobs from "./pages/ManageJobs";
 import JobForm from "./pages/JobForm";
-import Reports from "./pages/Reports";
 import AdminLayout from "./layouts/AdminLayout";
 import UserProfile from "./pages/UserProfile";
 import AdminUserDetails from "./pages/AdminUserDetails";
@@ -30,7 +29,6 @@ function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/users" element={<UserProfile />} /> 
             <Route path="/jobs" element={<ManageJobs />} />
-            <Route path="/reports" element={<Reports />} />
             <Route path="/jobs/add" element={<JobForm />} />
             <Route path="/admin/jobs/:id" element={<JobDetails />} />
             <Route path="/admin/users/:id" element={<AdminUserDetails />} />
