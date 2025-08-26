@@ -52,7 +52,6 @@ export default function AdminUserDetails() {
         <div className="user-profile-info">
           <p><strong>Email:</strong> {user.email}</p>
           <p><strong>Role:</strong> {user.role}</p>
-          <p><strong>Provider:</strong> {user.provider}</p>
           {user.phone && <p><strong>Phone:</strong> {user.phone}</p>}
           {user.location && <p><strong>Location:</strong> {user.location}</p>}
           {user.experience && <p><strong>Experience:</strong> {user.experience}</p>}
@@ -119,11 +118,18 @@ export default function AdminUserDetails() {
 
       {/* Resume */}
       {user.resume && (
-        <div className="user-section">
+        <div className="user-section resume-viewer">
           <h3>Resume</h3>
-          <a href={user.resume} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-            View Resume
-          </a>
+          <div className="resume-actions">
+            <a
+              href={`https://docs.google.com/viewer?url=${encodeURIComponent(user.resume)}&embedded=true`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-primary"
+            >
+              View Resume
+            </a>
+          </div>
         </div>
       )}
 
@@ -132,7 +138,6 @@ export default function AdminUserDetails() {
         <div className="user-section">
           <h3>Applied Jobs</h3>
           <p>Total: {user.appliedJobs.length}</p>
-          {/* you can map appliedJobs once backend sends job details */}
         </div>
       )}
     </div>

@@ -7,11 +7,11 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import ManageJobs from "./pages/ManageJobs";
 import JobForm from "./pages/JobForm";
+import EditJob from "./pages/EditJob";   // ✅ import edit form
 import AdminLayout from "./layouts/AdminLayout";
 import UserProfile from "./pages/UserProfile";
 import AdminUserDetails from "./pages/AdminUserDetails";
 import JobDetails from "./pages/JobDetails";
-
 
 function App() {
   return (
@@ -30,7 +30,13 @@ function App() {
             <Route path="/users" element={<UserProfile />} /> 
             <Route path="/jobs" element={<ManageJobs />} />
             <Route path="/jobs/add" element={<JobForm />} />
+
+            {/* 🔹 Admin job routes */}
+            <Route path="/admin/jobs" element={<ManageJobs />} />
+            <Route path="/admin/jobs/add" element={<JobForm />} />
+            <Route path="/admin/jobs/edit/:id" element={<EditJob />} /> {/* ✅ use separate edit form */}
             <Route path="/admin/jobs/:id" element={<JobDetails />} />
+
             <Route path="/admin/users/:id" element={<AdminUserDetails />} />
           </Route>
         </Routes>

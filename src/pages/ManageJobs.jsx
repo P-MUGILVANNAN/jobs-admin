@@ -8,10 +8,12 @@ const API_BASE = "https://jobs-backend-z4z9.onrender.com/api";
 
 function ManageJobs() {
   const [jobs, setJobs] = useState([]);
+  const [filteredJobs, setFilteredJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
 
@@ -21,6 +23,7 @@ function ManageJobs() {
       setLoading(true);
       const res = await axios.get(`${API_BASE}/jobs?page=${pageNum}&limit=10`);
       setJobs(res.data.jobs || []);
+      setFilteredJobs(res.data.jobs || []);
       setTotalPages(res.data.totalPages || 1);
     } catch (err) {
       console.error("Error fetching jobs:", err);
@@ -43,16 +46,51 @@ function ManageJobs() {
         headers: { Authorization: `Bearer ${token}` },
       });
       setJobs(jobs.filter((job) => job._id !== id));
+      setFilteredJobs(filteredJobs.filter((job) => job._id !== id));
     } catch (err) {
       console.error("Delete error:", err);
       alert("Failed to delete job");
     }
   };
 
+  // 🔹 Search Filter
+  const handleSearch = (e) => {
+    const term = e.target.value.toLowerCase();
+    setSearchTerm(term);
+    if (!term) return setFilteredJobs(jobs);
+
+    const filtered = jobs.filter(
+      (job) =>
+        job.title.toLowerCase().includes(term) ||
+        (job.location && job.location.toLowerCase().includes(term)) ||
+        (job.companyName && job.companyName.toLowerCase().includes(term))
+    );
+    setFilteredJobs(filtered);
+  };
+
   return (
     <div className="managejobs-container container mt-4">
-      <h2 className="text-center mb-4 fw-bold">Manage Jobs</h2>
+      {/* Header with Title, Add Job Button and Search */}
+      <div className="managejobs-header d-flex flex-wrap justify-content-between align-items-center mb-3">
+        <h2 className="fw-bold mb-2">Job List</h2>
+        <div className="d-flex gap-2 mb-2">
+          <input
+            type="text"
+            placeholder="Search jobs..."
+            className="search-input"
+            value={searchTerm}
+            onChange={handleSearch}
+          />
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate("/jobs/add")}
+          >
+            Add Job
+          </button>
+        </div>
+      </div>
 
+      {/* Table / Loading / Error */}
       {loading ? (
         <div className="text-center my-5">
           <div className="spinner-border text-primary" role="status"></div>
@@ -60,8 +98,8 @@ function ManageJobs() {
         </div>
       ) : error ? (
         <div className="alert alert-danger text-center">{error}</div>
-      ) : jobs.length === 0 ? (
-        <div className="alert alert-info text-center">No jobs available</div>
+      ) : filteredJobs.length === 0 ? (
+        <div className="alert alert-info text-center">No jobs found</div>
       ) : (
         <div className="table-responsive shadow rounded">
           <table className="table table-hover align-middle">
@@ -79,7 +117,7 @@ function ManageJobs() {
               </tr>
             </thead>
             <tbody>
-              {jobs.map((job, index) => (
+              {filteredJobs.map((job, index) => (
                 <tr key={job._id}>
                   <td>{index + 1 + (page - 1) * 10}</td>
                   <td>
@@ -87,12 +125,7 @@ function ManageJobs() {
                       <img
                         src={job.companyImage}
                         alt="company"
-                        style={{
-                          width: "40px",
-                          height: "40px",
-                          objectFit: "cover",
-                          borderRadius: "50%",
-                        }}
+                        className="table-avatar"
                       />
                     ) : (
                       <span className="text-muted">No Logo</span>
@@ -108,9 +141,9 @@ function ManageJobs() {
                   </td>
                   <td>₹ {job.salary.toLocaleString()}</td>
                   <td>{new Date(job.createdAt).toLocaleDateString()}</td>
-                  <td className="text-center">
+                  <td className="actions-cell">
                     <button
-                      className="btn btn-sm btn-info me-2"
+                      className="btn btn-sm btn-info"
                       onClick={() => navigate(`/admin/jobs/${job._id}`)}
                     >
                       View Details
