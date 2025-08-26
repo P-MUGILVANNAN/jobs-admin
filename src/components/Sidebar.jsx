@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { HouseDoor, People, Briefcase, PlusCircle, Gear, BoxArrowRight } from "react-bootstrap-icons";
+import { HouseDoor, People, Briefcase, PlusCircle, BoxArrowRight } from "react-bootstrap-icons";
 import "../styles/Sidebar.css";
+import Logo from "../assets/Logo.png";
 
-export default function Sidebar({ onLogout }) {
-  const [collapsed, setCollapsed] = useState(false);
+export default function Sidebar({ onLogout, expanded, isMobile }) {
   const location = useLocation();
 
   const menuItems = [
@@ -14,13 +13,23 @@ export default function Sidebar({ onLogout }) {
     { path: "/jobs/add", label: "Add Job", icon: <PlusCircle className="icon" /> },
   ];
 
+  // Determine sidebar classes based on state
+  const sidebarClass = `sidebar ${expanded ? 'expanded' : ''} ${isMobile ? 'mobile' : ''}`;
+
   return (
-    <aside className={`sidebar ${collapsed ? "collapsed" : ""}`}>
+    <aside className={sidebarClass}>
       <div className="sidebar-header">
-        <h2 className="sidebar-title">{collapsed ? "AP" : "Admin Panel"}</h2>
-        <button className="collapse-btn" onClick={() => setCollapsed(!collapsed)}>
-          {collapsed ? "»" : "«"}
-        </button>
+        <img src={Logo} alt="Logo" className="sidebar-logo" />
+        <h2 className="sidebar-title">{expanded || !isMobile ? "Admin Panel" : "AP"}</h2>
+        {!isMobile && (
+          <button 
+            className="collapse-btn" 
+            onClick={() => {/* This should be handled by parent */}}
+            aria-label="Toggle sidebar"
+          >
+            {expanded ? "«" : "»"}
+          </button>
+        )}
       </div>
 
       <nav className="sidebar-nav">
@@ -30,10 +39,10 @@ export default function Sidebar({ onLogout }) {
               <Link
                 to={item.path}
                 className={location.pathname === item.path ? "active" : ""}
-                title={collapsed ? item.label : ""}
+                title={!expanded && isMobile ? item.label : ""}
               >
                 {item.icon}
-                {!collapsed && <span className="menu-label">{item.label}</span>}
+                {(expanded || !isMobile) && <span className="menu-label">{item.label}</span>}
               </Link>
             </li>
           ))}
@@ -41,9 +50,13 @@ export default function Sidebar({ onLogout }) {
       </nav>
 
       <div className="sidebar-footer">
-        <button className="logout-btn" onClick={onLogout} title={collapsed ? "Logout" : ""}>
+        <button 
+          className="logout-btn" 
+          onClick={onLogout} 
+          title={!expanded && isMobile ? "Logout" : ""}
+        >
           <BoxArrowRight className="icon" />
-          {!collapsed && <span className="logout-label">Logout</span>}
+          {(expanded || !isMobile) && <span className="logout-label">Logout</span>}
         </button>
       </div>
     </aside>

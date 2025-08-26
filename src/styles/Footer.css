@@ -1,0 +1,19 @@
+/* src/styles/Footer.css */
+.admin-footer {
+  width: 100%;
+  padding: 1rem 2rem;
+  margin-top: 2rem;
+  text-align: center;
+  background: linear-gradient(135deg, #fefcf3 0%, #f9f6eb 100%);
+  color: #4b5563;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(30, 58, 138, 0.05);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .admin-footer {
+    padding: 0.8rem 1rem;
+    font-size: 0.85rem;
+  }
+}
