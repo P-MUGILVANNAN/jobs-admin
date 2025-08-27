@@ -12,6 +12,7 @@ import AdminLayout from "./layouts/AdminLayout";
 import UserProfile from "./pages/UserProfile";
 import AdminUserDetails from "./pages/AdminUserDetails";
 import JobDetails from "./pages/JobDetails";
+import Applications from "./pages/Applications";   // ✅ import Applications page
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
             <Route path="/admin/jobs/:id" element={<JobDetails />} />
 
             <Route path="/admin/users/:id" element={<AdminUserDetails />} />
+
+            {/* 🔹 Applications management route */}
+            <Route path="/applications" element={<Applications />} /> {/* ✅ new route */}
           </Route>
         </Routes>
       </Router>

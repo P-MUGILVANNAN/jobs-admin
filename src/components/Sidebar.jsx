@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { HouseDoor, People, Briefcase, PlusCircle, BoxArrowRight } from "react-bootstrap-icons";
+import { HouseDoor, People, Briefcase, PlusCircle, BoxArrowRight, Inbox } from "react-bootstrap-icons"; 
 import "../styles/Sidebar.css";
 import Logo from "../assets/Logo.png";
 
@@ -11,10 +11,10 @@ export default function Sidebar({ onLogout, expanded, isMobile }) {
     { path: "/users", label: "Users", icon: <People className="icon" /> },
     { path: "/jobs", label: "Manage Jobs", icon: <Briefcase className="icon" /> },
     { path: "/jobs/add", label: "Add Job", icon: <PlusCircle className="icon" /> },
+    { path: "/applications", label: "Applications", icon: <Inbox className="icon" /> }, // ✅ new
   ];
 
-  // Determine sidebar classes based on state
-  const sidebarClass = `sidebar ${expanded ? 'expanded' : ''} ${isMobile ? 'mobile' : ''}`;
+  const sidebarClass = `sidebar ${expanded ? "expanded" : ""} ${isMobile ? "mobile" : ""}`;
 
   return (
     <aside className={sidebarClass}>
@@ -22,9 +22,11 @@ export default function Sidebar({ onLogout, expanded, isMobile }) {
         <img src={Logo} alt="Logo" className="sidebar-logo" />
         <h2 className="sidebar-title">{expanded || !isMobile ? "Admin Panel" : "AP"}</h2>
         {!isMobile && (
-          <button 
-            className="collapse-btn" 
-            onClick={() => {/* This should be handled by parent */}}
+          <button
+            className="collapse-btn"
+            onClick={() => {
+              /* handled by parent */
+            }}
             aria-label="Toggle sidebar"
           >
             {expanded ? "«" : "»"}
@@ -50,9 +52,9 @@ export default function Sidebar({ onLogout, expanded, isMobile }) {
       </nav>
 
       <div className="sidebar-footer">
-        <button 
-          className="logout-btn" 
-          onClick={onLogout} 
+        <button
+          className="logout-btn"
+          onClick={onLogout}
           title={!expanded && isMobile ? "Logout" : ""}
         >
           <BoxArrowRight className="icon" />
