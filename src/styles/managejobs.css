@@ -1,3 +1,4 @@
+/* Container */
 .managejobs-container {
   background: #f8faff;
   padding: 2rem;
@@ -5,92 +6,111 @@
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
-/* Title */
-.managejobs-container h2 {
+/* Header: Title + Search + Add Job */
+.managejobs-header h2 {
   color: var(--primary);
   font-weight: 700;
   letter-spacing: 0.5px;
 }
 
+.search-input {
+  padding: 6px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 0.9rem;
+  width: 200px;
+  transition: border 0.2s;
+}
+
+.search-input:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
 /* Table */
-.managejobs-container table {
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.managejobs-container thead {
-  background: var(--primary);
-  color: #fff;
-}
-
-.managejobs-container th {
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.4px;
-}
-
-.managejobs-container tbody tr {
-  transition: background 0.2s ease;
-}
-
-.managejobs-container tbody tr:hover {
+.table-hover tbody tr:hover {
   background: #f1f6ff;
+}
+
+.table-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #dee2e6;
 }
 
 /* Badges */
 .badge {
-  padding: 0.5em 0.7em;
-  font-size: 0.75rem;
-  border-radius: 8px;
-}
-
-/* Buttons inside actions */
-.managejobs-container .btn-info {
-  background-color: var(--secondary) !important;
-  border: none !important;
-  color: #fff !important;
-  transition: transform 0.2s, background 0.2s;
-}
-
-.managejobs-container .btn-info:hover {
-  background-color: #2980b9 !important;
-  transform: translateY(-2px);
-}
-
-.managejobs-container .btn-danger {
-  background-color: var(--danger) !important;
-  border: none !important;
-  color: #fff !important;
-  transition: transform 0.2s, background 0.2s;
-}
-
-.managejobs-container .btn-danger:hover {
-  background-color: #c0392b !important;
-  transform: translateY(-2px);
-}
-
-/* Pagination */
-.pagination .page-item .page-link {
-  border: none;
-  color: var(--primary);
+  font-size: 0.8rem;
   font-weight: 500;
+  padding: 0.35em 0.65em;
+}
+
+/* Actions Cell */
+.actions-cell {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-end;
+}
+
+/* Buttons */
+.btn-sm {
+  padding: 5px 10px;
+  font-size: 0.8rem;
   border-radius: 6px;
-  margin: 0 4px;
-  transition: background 0.2s, color 0.2s;
+  font-weight: 500;
+  transition: transform 0.2s, background 0.2s;
 }
 
-.pagination .page-item.active .page-link {
-  background: var(--primary);
-  color: white;
-  font-weight: 600;
+.btn-sm:hover {
+  transform: translateY(-2px);
 }
 
-.pagination .page-item.disabled .page-link {
-  color: #999;
+.btn-info {
+  background-color: var(--secondary);
+  color: #fff;
 }
 
-.pagination .page-link:hover {
-  background: #eaf2ff;
-  color: var(--secondary);
+.btn-info:hover {
+  background-color: #2980b9;
+}
+
+.btn-danger {
+  background-color: var(--danger);
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c0392b;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Loading/Error States */
+.loading,
+.error,
+.no-data {
+  text-align: center;
+  font-size: 1.1rem;
+  margin-top: 40px;
+}
+
+.loading {
+  color: var(--primary);
+}
+
+.error {
+  color: var(--danger);
+}
+
+.no-data {
+  color: #6c757d;
 }

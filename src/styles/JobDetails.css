@@ -1,93 +1,159 @@
-/* src/styles/JobDetails.css */
-
 .job-details-container {
   max-width: 900px;
-  margin: 0 auto;
-  background: #ffffff;
+  margin: 2rem auto;
+  background: #f8faff;
   padding: 2rem;
   border-radius: 12px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.12);
   font-family: "Inter", sans-serif;
-  color: #333;
+  color: #374151;
 }
 
+/* Heading */
 .job-details-container h2 {
   font-size: 1.8rem;
   font-weight: 700;
   margin-bottom: 1.5rem;
-  color: #1e3a8a; /* deep blue */
+  color: var(--primary);
 }
 
-.job-details-container img {
+/* Company Image */
+.company-img {
   width: 120px;
   height: 120px;
   object-fit: cover;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   border-radius: 10px;
-  border: 2px solid #e5e7eb;
+  border: 3px solid #3b82f6;
 }
 
-.job-details-container p {
+/* Info Section */
+.job-info p {
   margin-bottom: 0.75rem;
   font-size: 1rem;
   line-height: 1.6;
 }
 
-.job-details-container span {
+.job-info span {
   font-weight: 600;
   color: #111827;
 }
 
-.job-details-container ul {
-  margin-top: 0.5rem;
+/* Requirements */
+.job-requirements {
+  margin-top: 1.5rem;
+}
+
+.job-requirements h4 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+}
+
+.job-requirements ul {
   padding-left: 1.5rem;
 }
 
-.job-details-container li {
-  list-style-type: disc;
+.job-requirements li {
   margin-bottom: 0.5rem;
 }
 
+/* Actions Buttons */
 .job-actions {
   display: flex;
-  gap: 1rem;
+  gap: 12px;
   margin-top: 2rem;
 }
 
-.job-actions button {
-  padding: 0.6rem 1.5rem;
+.job-actions .btn {
+  padding: 0.55rem 1.2rem;
   border-radius: 8px;
   font-weight: 600;
   font-size: 0.95rem;
-  transition: all 0.2s ease-in-out;
-  border: none;
   cursor: pointer;
+  border: none;
+  transition: transform 0.2s, background 0.2s;
 }
 
-.job-actions .edit-btn {
-  background-color: #2563eb;
+.job-actions .btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background-color: var(--primary);
   color: #fff;
 }
 
-.job-actions .edit-btn:hover {
-  background-color: #1e40af;
+.btn-primary:hover {
+  background-color: #1e3a8a;
 }
 
-.job-actions .delete-btn {
-  background-color: #ef4444;
+.btn-danger {
+  background-color: var(--danger);
   color: #fff;
 }
 
-.job-actions .delete-btn:hover {
+.btn-danger:hover {
   background-color: #b91c1c;
 }
 
+/* Text states */
 .text-center {
   text-align: center;
   font-size: 1.1rem;
 }
 
-.text-error {
-  color: #dc2626;
-  font-weight: 500;
+.loading {
+  color: var(--primary);
+}
+
+.error {
+  color: var(--danger);
+}
+
+.no-data {
+  color: #6b7280;
+}
+
+/* 🔹 Modal Overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* 🔹 Modal Box */
+.modal-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  text-align: center;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.modal-box h3 {
+  margin-bottom: 1.5rem;
+  font-size: 1.2rem;
+  color: #111827;
+}
+
+/* 🔹 Modal Actions */
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.btn-secondary {
+  background: #6b7280;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background: #4b5563;
 }

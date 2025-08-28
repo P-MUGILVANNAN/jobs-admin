@@ -1,3 +1,4 @@
+// src/pages/JobDetails.jsx
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +12,7 @@ const JobDetails = () => {
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showModal, setShowModal] = useState(false); // 🔹 modal state
 
   useEffect(() => {
     const fetchJob = async () => {
@@ -27,43 +29,41 @@ const JobDetails = () => {
   }, [id]);
 
   const handleDelete = async () => {
-    if (window.confirm("Are you sure you want to delete this job?")) {
-      try {
-        await axios.delete(`${API_BASE}/jobs/${id}`);
-        navigate("/admin/jobs");
-      } catch (err) {
-        alert("Error deleting job.");
-      }
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`${API_BASE}/jobs/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      setShowModal(false);
+      navigate("/jobs"); // ✅ go back to manage jobs
+    } catch (err) {
+      alert("Error deleting job.");
     }
   };
 
-  if (loading) return <p className="text-center">Loading job details...</p>;
-  if (error) return <p className="text-center text-error">{error}</p>;
+  if (loading) return <p className="text-center loading">Loading job details...</p>;
+  if (error) return <p className="text-center error">{error}</p>;
+  if (!job) return <p className="text-center no-data">Job not found</p>;
 
   return (
     <div className="job-details-container">
       <h2>{job.title}</h2>
 
       {job.companyImage && (
-        <img src={job.companyImage} alt="Company" />
+        <img src={job.companyImage} alt={job.company} className="company-img" />
       )}
 
-      <p>
-        <span>Company:</span> {job.company}
-      </p>
-      <p>
-        <span>Location:</span> {job.location}
-      </p>
-      <p>
-        <span>Type:</span> {job.type}
-      </p>
-      <p>
-        <span>Description:</span> {job.description}
-      </p>
+      <div className="job-info">
+        <p><span>Company:</span> {job.companyName}</p>
+        <p><span>Location:</span> {job.location}</p>
+        <p><span>Type:</span> {job.jobType || job.type}</p>
+        <p><span>Salary:</span> ₹ {job.salary?.toLocaleString()}</p>
+        <p><span>Description:</span> {job.description}</p>
+      </div>
 
-      {job.requirements && (
-        <div>
-          <span>Requirements:</span>
+      {job.requirements?.length > 0 && (
+        <div className="job-requirements">
+          <h4>Requirements</h4>
           <ul>
             {job.requirements.map((req, idx) => (
               <li key={idx}>{req}</li>
@@ -74,15 +74,35 @@ const JobDetails = () => {
 
       <div className="job-actions">
         <button
-          onClick={() => navigate(`/admin/jobs/edit/${id}`)}
-          className="edit-btn"
+          className="btn btn-primary"
+          onClick={() => navigate(`/admin/jobs/edit/${id}`)} // ✅ edit page
         >
           Edit Job
         </button>
-        <button onClick={handleDelete} className="delete-btn">
+        <button
+          className="btn btn-danger"
+          onClick={() => setShowModal(true)} // ✅ open modal
+        >
           Delete Job
         </button>
       </div>
+
+      {/* 🔹 Delete Confirmation Modal */}
+      {showModal && (
+        <div className="modal-overlay">
+          <div className="modal-box">
+            <h3>Are you sure you want to delete this job?</h3>
+            <div className="modal-actions">
+              <button className="btn btn-danger" onClick={handleDelete}>
+                Yes, Delete
+              </button>
+              <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

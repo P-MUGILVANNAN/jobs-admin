@@ -76,110 +76,72 @@ export default function AdminUsers() {
   return (
     <div className="user-list-container">
       <h1>User Management</h1>
-      <div className="users-grid">
-        {users.map((user) => (
-          <div
-            key={user._id}
-            className={`user-card ${user.isSuspicious ? "suspicious" : ""}`}
-          >
-            {/* Header */}
-            <div className="user-card-header">
-              <h3>{user.name || "Unnamed User"}</h3>
-              <div className="user-actions">
+      <table className="users-table">
+        <thead>
+          <tr>
+            <th>Photo</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Status</th>
+            <th style={{ textAlign: "right" }}>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {users.map((user) => (
+            <tr
+              key={user._id}
+              className={user.isSuspicious ? "suspicious-row" : ""}
+            >
+              <td>
+                <img
+                  src={user.profileImage || user.avatar || "/default-avatar.png"}
+                  alt={user.name}
+                  className="table-avatar"
+                />
+              </td>
+              <td>{user.name || "Unnamed User"}</td>
+              <td>{user.email}</td>
+              <td>{user.phone || "—"}</td>
+              <td>
+                <span
+                  className={`status-badge ${
+                    user.isSuspicious ? "suspicious" : "normal"
+                  }`}
+                >
+                  {user.isSuspicious ? "Suspicious" : "Normal"}
+                </span>
+              </td>
+              <td className="actions-cell">
                 <button
-                  onClick={() => handleToggleSuspicious(user._id, user.isSuspicious)}
-                  className={`btn ${user.isSuspicious ? "btn-warning" : "btn-secondary"}`}
+                  onClick={() =>
+                    handleToggleSuspicious(user._id, user.isSuspicious)
+                  }
+                  className={`btn-sm ${
+                    user.isSuspicious ? "btn-warning" : "btn-secondary"
+                  }`}
                 >
                   {user.isSuspicious ? "Unflag" : "Flag"}
                 </button>
                 <button
                   onClick={() => handleDeleteUser(user._id)}
-                  className="btn btn-danger"
+                  className="btn-sm btn-danger"
                 >
                   Delete
                 </button>
-              </div>
-            </div>
-
-            {/* Basic Info */}
-            <div className="user-basic-info">
-              <img
-                src={user.profileImage || user.avatar || "/default-avatar.png"}
-                alt={user.name}
-                className="user-avatar"
-              />
-              <div className="user-details">
-                <p><strong>Email:</strong> {user.email}</p>
-                <p><strong>Role:</strong> {user.role}</p>
-                <p><strong>Provider:</strong> {user.provider}</p>
-                {user.phone && <p><strong>Phone:</strong> {user.phone}</p>}
-                {user.location && <p><strong>Location:</strong> {user.location}</p>}
-                {user.experience && <p><strong>Experience:</strong> {user.experience}</p>}
-                <p className={`status ${user.isSuspicious ? "suspicious" : "normal"}`}>
-                  Status: {user.isSuspicious ? "Suspicious" : "Normal"}
-                </p>
-              </div>
-            </div>
-
-            {/* Skills */}
-            {user.skills?.length > 0 && (
-              <div className="user-section">
-                <h4>Skills</h4>
-                <div className="skills">
-                  {user.skills.map((skill, idx) => (
-                    <span key={idx} className="skill-badge">{skill}</span>
-                  ))}
-                </div>
-              </div>
-            )}
-
-            {/* Additional Info */}
-            <div className="user-additional-info">
-              {user.about && (
-                <div className="user-section">
-                  <h4>About</h4>
-                  <p>{user.about}</p>
-                </div>
-              )}
-
-              {user.education?.length > 0 && (
-                <div className="user-section">
-                  <h4>Education</h4>
-                  <ul>
-                    {user.education.map((edu, idx) => (
-                      <li key={idx}>
-                        <strong>{edu.level}</strong> at {edu.institution}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-
-              {user.projects?.length > 0 && (
-                <div className="user-section">
-                  <h4>Projects ({user.projects.length})</h4>
-                </div>
-              )}
-
-              {user.appliedJobs?.length > 0 && (
-                <div className="user-section">
-                  <h4>Applied Jobs ({user.appliedJobs.length})</h4>
-                </div>
-              )}
-            </div>
-
-            {/* View Profile */}
-            <div className="user-card-footer">
-              <button
-                onClick={() => (window.location.href = `/admin/users/${user._id}`)}
-                className="btn btn-primary"
-              >
-                View Full Profile
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
+                <button
+                  onClick={() =>
+                    (window.location.href = `/admin/users/${user._id}`)
+                  }
+                  className="btn-sm btn-primary"
+                >
+                  View
+                </button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }

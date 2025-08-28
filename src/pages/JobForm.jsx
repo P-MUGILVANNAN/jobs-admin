@@ -7,6 +7,7 @@ const API_BASE = "https://jobs-backend-z4z9.onrender.com/api";
 
 function JobForm() {
   const [formData, setFormData] = useState({
+    companyName:"",
     title: "",
     description: "",
     skills: "",
@@ -24,6 +25,7 @@ function JobForm() {
   // 🔹 Validation
   const validate = () => {
     let temp = {};
+    if (!formData.companyName.trim()) temp.companyName = "Comapany name is required";
     if (!formData.title.trim()) temp.title = "Job title is required";
     if (!formData.description.trim()) temp.description = "Description is required";
     if (!formData.skills.trim()) temp.skills = "At least 1 skill is required";
@@ -56,6 +58,7 @@ function JobForm() {
       const token = localStorage.getItem("token");
 
       const data = new FormData();
+      data.append("companyName", formData.companyName);
       data.append("title", formData.title);
       data.append("description", formData.description);
       data.append("location", formData.location);
@@ -76,6 +79,7 @@ function JobForm() {
 
       setSubmitted(true);
       setFormData({
+        companyName:"",
         title: "",
         description: "",
         skills: "",
@@ -101,6 +105,18 @@ function JobForm() {
       {submitted && <div className="alert alert-success">Job posted successfully!</div>}
 
       <form onSubmit={handleSubmit} className="p-4 rounded shadow-sm bg-light">
+        {/* company name */}
+        <div className="mb-3">
+          <label className="form-label">Company Name</label>
+          <input
+            type="text"
+            name="companyName"
+            value={formData.companyName}
+            onChange={handleChange}
+            className={`form-control ${errors.companyName ? "is-invalid" : ""}`}
+          />
+          <div className="invalid-feedback">{errors.companyName}</div>
+        </div>
         {/* Title */}
         <div className="mb-3">
           <label className="form-label">Job Title</label>
